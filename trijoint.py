@@ -24,7 +24,9 @@ class TableModule(nn.Module):
         return y
 
 def norm(input, p=2, dim=1, eps=1e-12):
-    return input / input.norm(p,dim,keepdim=True).clamp(min=eps).expand_as(input)
+    #GB06 4/5/19
+    #return input / input.norm(p,dim,keepdim=True).clamp(min=eps).expand_as(input)
+    return input / input.norm(p,dim).clamp(min=eps).expand_as(input)
 
 # Skip-thoughts LSTM
 class stRNN(nn.Module):

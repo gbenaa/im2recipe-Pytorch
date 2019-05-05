@@ -63,8 +63,14 @@ class ImagerLoader(data.Dataset):
         target = match and 1 or -1
 
         with self.env.begin(write=False) as txn:
-            serialized_sample = txn.get(self.ids[index])
-        sample = pickle.loads(serialized_sample)
+            #serialized_sample = txn.get(self.ids[index])
+            #GB01 4/5/19 
+            serialized_sample = txn.get(self.ids[index].encode())
+            #serialized_sample = txn.get(self.ids[index])
+        #GB04 4/5/19 
+        sample = pickle.loads(serialized_sample, encoding='latin1')
+        #sample = pickle.loads(serialized_sample)
+
         imgs = sample['imgs']
 
         # image
